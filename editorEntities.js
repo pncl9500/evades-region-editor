@@ -62,7 +62,13 @@ function spawnEntities(area=current_Area){
   for(var x in activeZones){
     var activeZone=activeZones[x];
     for (var i in activeZone.spawner) {
-      for (var j=0;j<activeZone.spawner[i].count;j++) {
+      /* frost giants in the first 10 areas of FF/FFH don't actually have a count value but still show up
+      so we can assume that the default count value is supposed to be 1. i tried to add count to defaultValues
+      but it didn't work, it just set the number to the count input in the UI and didn't spawn the frost giant.
+      so i have to intrusively force it in here. There is probably a cleaner/less intrusive way to do this with
+      default values. tldr: no value for spawner count makes it spawn 1 enemy by default
+      */
+      for (var j = 0;j < (activeZone.spawner[i].count ?? 1);j++) {
         if(activeZone.spawner[i].count>1024){console.warn("Too many spawner entities to be displayed");continue};
         var left=activeZone.x;
         var right=activeZone.x+activeZone.width;
@@ -351,6 +357,28 @@ function spawnEntities(area=current_Area){
           case "wall":
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
           break;
+          case "frost_giant":
+            entity=new FrostGiantEnemy(
+              enemyX,
+              enemyY,
+              radius,
+              activeZone.spawner[i].speed,
+              activeZone.spawner[i].angle,
+              activeZone.spawner[i].direction,
+              activeZone.spawner[i].pattern,
+              activeZone.spawner[i].shot_acceleration,
+              activeZone.spawner[i].shot_interval,
+              activeZone.spawner[i].cone_angle,
+              activeZone.spawner[i].turn_speed,
+              activeZone.spawner[i].turn_acceleration,
+              activeZone.spawner[i].pause_interval,
+              activeZone.spawner[i].pause_duration,
+              activeZone.spawner[i].projectile_duration,
+              activeZone.spawner[i].projectile_speed,
+              activeZone.spawner[i].projectile_radius,
+              activeZone.spawner[i].immune,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+            break;
           case "normal":
           case "dasher":
           case "homing":
@@ -365,7 +393,6 @@ function spawnEntities(area=current_Area){
           ww: case "switch":
           gg: case "icicle":
           ff: case "snowman": (this sounds really stupid to add)
-          ff: case "frost_giant": (its a stretch, while it is nice to have it will be tedious to add)
         */
         /* enemies that detect player (use mouse as player position substitute):
           gg: case "liquid":
@@ -393,7 +420,7 @@ function spawnEntities(area=current_Area){
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height}
           );
           break;
-        };entity.collision();map.areas[area].entities.push(entity);
+        };entity.collision();map.areas[area].entities.push(entity);console.log(map.areas[area])
       }
     }
   }
@@ -1802,6 +1829,7 @@ class SimulatorEntity{
     this.radiusMultiplier=1;
     this.speedMultiplier=1;
     this.boundary=boundary;
+    this.toRemove = false;
   }
   anglevel(){
     this.velX=Math.cos(this.angle)*this.speed;
@@ -2929,6 +2957,76 @@ class ZoningEnemy extends Enemy{
 	  this.speedMultiplier=1;
     this.collision(delta);
     
+  }
+}
+
+class FrostGiantEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,direction,pattern,shot_acceleration,shot_interval,cone_angle,turn_speed,turn_acceleration,pause_interval,pause_duration,projectile_duration,projectile_speed,projectile_radius,immune,boundary){
+    super(x,y,radius,speed,angle,"#7e7cd6","frost_giant",boundary);
+    this.direction = direction;
+    this.shot_acceleration = shot_acceleration;
+    this.shot_interval = shot_interval;
+    this.turn_speed = turn_speed * (Math.PI/180);
+    this.cone_angle = cone_angle * (Math.PI/180);
+    this.turn_acceleration = turn_acceleration * (Math.PI/180);
+    this.pause_interval = pause_interval;
+    this.pause_duration = pause_duration;
+    this.projectile_duration = projectile_duration;
+    this.projectile_speed = projectile_speed;
+    this.projectile_radius = projectile_radius;
+    this.immune = immune;
+    
+    this.pattern_generator = this.get_pattern_generator(pattern);
+
+    this.shot_cooldown = null;
+    this.pause_cooldown = null;
+    this.pause_time = null;
+    this.reset_parameters();
+  }
+  reset_parameters(){
+    this.shot_cooldown = this.shot_interval;
+    this.pause_cooldown = this.pause_interval;
+    this.pause_time = this.pause_duration;
+  }
+  update(delta){
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+  get_pattern_generator(pattern){
+    switch(pattern){
+      case"spiral": return this.spiral_pattern;
+      case"twinspiral": return this.twinspiral_pattern;
+      case"quadspiral": return this.quadspiral_pattern;
+      case"cone": return this.cone_pattern;
+      case"twincone": return this.twincone_pattern;
+      case"cone_edges": return this.cone_edges_pattern;
+      case"twin": return this.twin_pattern;
+      case"singlebig": return this.singlebig_pattern;
+      default: this.rotation = true; return ()=>{}
+    }
+  }
+}
+
+class FrostGiantBullet extends Enemy{
+  constructor(x, y, radius, speed, angle, lifetime = 4000){
+    super(x,y,radius,speed,angle,"#a0a7d6","frost_giant_bullet",boundary);
+    this.lifetime = lifetime;
+    this.clock = 0;
+  }
+  update(delta){
+    this.clock += delta;
+    if (this.clock > this.lifetime){
+      this.toRemove = true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier=1;
+    this.collision(delta);
+  }
+  onCollide(){
+    this.toRemove = true;
   }
 }
 
