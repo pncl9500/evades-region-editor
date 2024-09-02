@@ -219,17 +219,7 @@ async function loadData(){
 };
 importer.addEventListener("input",e=>{
   if(!importer.selectedIndex)return;
-  var req=new XMLHttpRequest;
   var url=WORLD.regions[importer.selectedIndex-1].file;
-  if(!url.endsWith(".yaml"))return consumed_by_ink_demon=1;
-  req.addEventListener("load", e=>{
-    if(e.target.status>=400)return customAlert(`[Error ${e.target.status} (${e.target.statusText})!!1]: Unable to fetch file "${url}"`,20,"#FF0000");
-    if(e.target.status>=200)return loadFile(e.target.responseText,false,false);
-	console.log("bruh",req);
-    if(e.target.status==0)return customAlert(`[No connection]: Please check your internet connection because you might be offline.`,20,"#FFFF00");
-  });
-  req.open("GET",url)
-  req.send();
   importer.selectedIndex=0
 })
 function updateMap(){
@@ -668,7 +658,7 @@ var cons=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4
 var prec=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/jumpscare.mp3");
 Object.defineProperty(global,"consumed_by_ink_demon",{
 	get(){
-		if(!prec.ended && prec.paused && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()==1){
+		if(!prec.ended && prec.paused && useractive.hasBeenActive && new Date().getMonth()==5){
 			global.a=1;
 			prec.play();
 			setTimeout(()=>{
