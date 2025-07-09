@@ -1,19 +1,89 @@
-a {
+a,.clickable-text {
 	text-decoration: none;
 	color: #fff
 }
+canvas{
+  display:block;
+  position:absolute;
+}
+#canvasBox{
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+#canvasUI{
+  top:0px;
+  left:0px;
+  pointer-events:none;
+}
 .canvas-overlay{
+	position:absolute;
+	background:#00000080;
+	backdrop-filter:blur(10px);
+	top:0;
+	left:0;
+	font-size:35px;
+	width:100%;
+	height:100%;
+	z-index:9999;
+}
+.canvas-overlay0{
 	position:absolute;
 	z-index:9999;
 }
-a:hover {
+.div-confirm>button{
+	width:200px;
+	font-size:20px;
+	border:none;
+	margin:0px 100px 0px 100px;
+	outline:none;
+	font-family:EvadesTahoma;
+	background:#2f3ab0;
+}
+input::spelling-error{
+  color:red;
+  text-decoration:none;
+}
+button,select,input{
+  font-family:EvadesTahoma;
+}
+.div-confirm>button:hover{
+	filter:brightness(1.5);
+}
+.div-confirm>button:active{
+	filter:brightness(2);
+}
+a:hover,.clickable-text:hover {
 	color: #a0c5ff
 }
-a:active {
+a:active,.clickable-text:active {
 	color: #7aadff
 }
-
+leaderboard{
+	z-index:99;
+}
+.div-confirm{
+	position:absolute;
+	top:50%;
+	width:100%;
+	text-align:center;
+	left:50%;
+	z-index:9999;
+	transform:translate(-50%,-50%);
+}
+leaderboard{transform: scale(var(--scale, 1)) translate(-10px, 10px);transform-origin: top right;right:0;top:0;pointer-events:visible;color: #f9f9f9;width: 220px;max-height: 600px;background-color: #00000080;padding: 2px 2px 10px;position: absolute;overflow-x: hidden;overflow-y: auto}
+.leaderboard-title {width: 100%;text-align: center;white-space: nowrap;font: 700 20px EvadesTahoma;display: inline-block}
+.leaderboard-world-title {width: 100%;text-align: center;margin-top: 5px;font: 18px EvadesTahoma;display: inline-block}
+.leaderboard-line {text-align: center;text-overflow: ellipsis;white-space: nowrap;font: 14px EvadesTahoma;overflow: hidden}
+.leaderboard-title-break {text-align: center;text-overflow: ellipsis;white-space: nowrap;font: 3px EvadesTahoma;overflow: hidden}
+leaderboard.big {width: 230px}
 #chat {
+	z-index: 99;
+  transform: scale(var(--scale, 1)) translate(60px, 10px);
+  transform-origin: top left;
+  top: 0;
+  left: 0;
+  pointer-events: visible;
 	width: 300px;
 	height: 200px;
 	background-color: #0009;
@@ -31,38 +101,51 @@ a:active {
 .chat-message {
 	color: #fff;
 	margin: 5px 10px 0;
-	font: 12px Tahoma,Arial,Verdana,Segoe,sans-serif
+	font: 12px EvadesTahoma
 }
 
 .chat-message-sender {
 	cursor: pointer
 }
 
-.chat-message .dev {
+.dev {
 	color: #87ceeb
 }
 
-.chat-message .head-mod {
+.head-mod {
 	color: #c00000
 }
 
-.chat-message .sr-mod {
+.africa-asia {
+	color: #939393
+}
+.africa-europe {
+	color: #ffceb7
+}
+.africa-europe-asia {
+	color: #fdfd13
+}
+.europe-asia {
+	color: #edffdf
+}
+
+.sr-mod {
 	color: #ff4949
 }
 
-.chat-message .mod {
+.mod {
 	color: #ffb349
 }
 
-.chat-message .jr-mod {
+.jr-mod {
 	color: #ffe049
 }
 
-.chat-message .youtuber {
+.youtuber {
 	color: #4bfc9a
 }
 
-.chat-message .streamer {
+.streamer {
 	color: #9248da
 }
 
@@ -74,7 +157,7 @@ a:active {
 	cursor: inherit
 }
 
-.chat-message .server-info {
+.server-info {
 	color: #fdfd13
 }
 
@@ -102,6 +185,12 @@ a:active {
 	display:none;
 }
 .mydomain:hover>span{
+	display:block;
+}
+.discord-server>span{
+	display:none;
+}
+.discord-server:hover>span{
 	display:block;
 }
 .issues>span{
@@ -133,13 +222,13 @@ a:active {
 .hero-select-question div {
     width: 32px;
     height: 32px;
-    background: url(question.png) 0 0/32px;
+    background: url(./miscellaneous/question.png) 0 0/32px;
 }
 .hero-select-question help {
   display:none;
   width:160px;
   position: absolute;
-  font-family:tah;
+  font-family: EvadesTahoma;
   bottom: 16px;
   right: 16px;
   border: 5px black solid;
@@ -176,23 +265,35 @@ helpText b{
 .hero-select-question:hover div {
     width: 32px;
     height: 32px;
-    background: url(question-hover.png) 0 0/32px;
+    background: url(./miscellaneous/question-hover.png) 0 0/32px;
+}
+
+#inputIndicator {
+	z-index: 1000;
+	position: absolute;
+	top: 10px;
+	right: 10px
+}
+
+#inputIndicator img {
+	width: 32px;
+	height: 32px
 }
 
 :root {
-    --number: #2fa1d6;
-    --text: #1ed36f;
-    --boolean: #ad55c5;
-    --cardinal: #bb3e2d;
-    --direction: #2fa1d6;
-    --direction_background: #195f80;
-    --direction_background_transparent: #195f8080;
-    --direction_background_hover: #227faa;
+    --number: #00FFFF;
+    --text: #00FF00;
+    --boolean: #FF00FF;
+    --cardinal: #FF0000;
+    --direction: #007FFF;
+    --direction_background: #003F7F;
+    --direction_background_transparent: #003F7F80;
+    --direction_background_hover: #007FAF;
 }
 body {
     background: #222222;
     color: #ffffff;
-    font-family: Consolas, monospace;
+    font-family: EvadesTahoma;
     margin: 0;
     overflow: hidden;
 }
@@ -211,17 +312,30 @@ body {
     display: none;
 }
 
-#tl {
-    position: absolute;
-    top: 5px;   
-    left: 5px;
-	max-width: 35px;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    background: #00000080;
+#EvadesIcons{
+  pointer-events:visible;
 }
-#download {
+#tl {
+	z-index:100;
+  position: absolute;
+  pointer-events:visible;
+  transform: scale(var(--scale, 1)) translate(5px, 5px);
+  transform-origin: top left;
+  top: 0;
+  left: 0;
+	max-width: 35px;
+  padding: 5px;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: #00000080;
+}
+#exportFile:disabled,#ExportFormatType:disabled,#importFile:disabled~#importLabel,#importer:disabled,#reset:disabled{
+  opacity:0.5;
+  color:black;
+  cursor:not-allowed;
+}
+#exportFile {
     position: relative;
     background: #00a000;
     border: none;
@@ -243,18 +357,18 @@ body {
     cursor: pointer;
     overflow: hidden;
 }
-#download svg,#slot svg {
+#exportFile svg,#slot svg {
     position: relative;
     z-index: 1;
     transition: 0.4s;
 }
-#download path,#slot path {
+#exportFile path,#slot path {
     transition: 0.4s;
 }
-#download:hover path,#slot:hover path {
+#exportFile:hover path,#slot:hover path {
     fill: #ffffff;
 }
-#download::before, #slot::before {
+#exportFile::before, #slot::before {
     content: "";
     display: block;
     width: 100%;
@@ -266,7 +380,7 @@ body {
     transition: transform 0.4s;
     transform: translateY(-100%);
 }
-#download:hover::before,#slot:hover::before {
+#exportFile:hover::before,#slot:hover::before {
     transform: translateY(0%);
 }
 #importer{
@@ -274,7 +388,7 @@ body {
 	border: none;
 	border-radius: 0 0 2px 2px;
 	height: 15px;
-	font-family: roboto;
+	font-family: EvadesTahoma;
 	font-weight: bold;
 	text-align: center;
 	-webkit-appearance: unset;
@@ -291,8 +405,7 @@ body {
 	border: none;
 	border-radius: 0 0 2px 2px;
 	height: 15px;
-	font-family: roboto;
-	font-weight: bold;
+	font-family: EvadesTahoma;
 	text-align: center;
 	-webkit-appearance: unset;
     transition: background 0.4s;
@@ -311,7 +424,7 @@ body {
     cursor: pointer;
     overflow: hidden;
 }
-#reset {
+#reset,#playtester {
     position: relative;
     background: #00a000;
     border: none;
@@ -321,6 +434,9 @@ body {
     height: 35px;
     cursor: pointer;
     overflow: hidden;
+}
+#playtester{
+  padding: 0;
 }
 #reset svg {
     position: relative;
@@ -375,7 +491,7 @@ body {
 #importLabel:hover::before {
     transform: translateY(0%);
 }
-#import {
+#importFile {
     display: none;
 }
 
@@ -432,82 +548,82 @@ body {
 *[hidden]{
   visibility: hidden;
 }
-#regionProp,#areaProp {
-display: block;
-    position: absolute;
-  margin:0;
-    user-select: none;
-  max-height:250px;
-  overflow:auto;
-    background: #00000080;
-    padding: 10px;
-  border-radius:10px;
-  border:2px #000000 solid;
+settingsheader{
+  font:bold 32px EvadesTahoma;
+  display:block;
+  width:100%;
+  text-align:center;
+  border-bottom:3px white solid;
+}
+titleheader{
+  font: bold 20px EvadesTahoma;
+  border-bottom: 1px white solid;
 }
 #tip>table{width:100%}
 #tip {
-  width:400px;
-    position: absolute;
-	max-height:200px;
+  font-family: EvadesTahoma;
+	width:416px;
+	position: absolute;
+  z-index:99;
 	overflow-y:auto;
 	overflow-x:hidden;
-  margin:0;
-    user-select: none;
-    background: #2f3ab0dd;
-    padding: 10px;
-  border-radius:10px;
-  border:2px #2f3ab0 solid;
+	margin:0;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background: #2f3ab0e6;
+	padding: 10px;
+	border-radius: 7.5px;
 }
-#extensionPage {
-display: grid;
-grid-column-gap: 0px;
-grid-row-gap: 0px;
-  width:350px;
-    position: absolute;
-  margin:0;
+#extensionPage{
+	display: -ms-grid;
+	display: grid;
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+	width:350px;
+	position: absolute;
+	margin:0;
+	-webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
-    background: #2f3ab0dd;
-    padding: 10px;
-  border-radius:10px;
-  align-items: center;justify-items: center;justify-content: center;align-content: center;
-  border:2px #2f3ab0 solid;
+	background: #2f3ab0dd;
+	padding: 10px;
+	border-radius:10px;
+	align-items: center;
+	justify-items: center;
+	justify-content: center;
+	align-content: center;
+	border:2px #2f3ab0 solid;
 }
-.settings-launcher {
+.settings-launcher:hover{
+  filter: brightness(120%);
+}
+.settings-launcher{
 	cursor: pointer;
-  position:absolute;
-	bottom: 6px;
-	right: 52px;
+	position:absolute;
+	bottom: 10px;
+	right: 10px;
 }
-.regional {
-  cursor: pointer;
-  position:absolute;
-  bottom: 6px;
-  right: 90px;
-}
-.areas {
-  cursor: pointer;
-  position:absolute;
-  bottom: 6px;
-  right: 250px;
-}
-
 .settings-launcher img {
 	width: 32px;
-	height: 32px
+	height: 32px;
 }
-#tip>titleheader{border-bottom:3px white solid}
-#extensionPage>titleheader {grid-area: 1 / 1 / 2 / 3;border-bottom:3px white solid}
+#extensionPage>titleheader {border-bottom:3px white solid}
 #objectFocus {
     display: none;
     position: absolute;
     top: 200px;
     left: 0px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
+
     background: #00000080;
     padding: 5px 10px;
 }
 #contextmenu {
     position: absolute;
+    user-select: none;
     top: 0;
     left: 0;
     z-index: 1;
@@ -540,29 +656,12 @@ grid-row-gap: 0px;
 #objectActions {
     border-bottom: 1px solid #404040;
     display: flex;
+    -ms-flex-direction: column;
     flex-direction: column;
 }
 #objectActions.hidden {
     display: none;
 }
-@media (prefers-color-scheme: light) {
-    #contextmenu button {
-        background: #e0e0e0;
-        color: #202020;
-    }
-    #contextmenu button:hover {
-        background: #c0c0c0;
-    }
-    #contextmenu button:disabled {
-        color: #20202040;
-    }
-}
-
-
-
-
-
-
 #bottommenu.hidden {
     display: initial;
     transform: translateY(100%);
@@ -640,18 +739,26 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 #menu {
+  pointer-events: visible;
     overflow: auto;
     position: absolute;
-    right: 15px;
-    top: 0px;
+  transform-origin: top right;
+  transform: scale(var(--scale, 1)) translate(-15px, 0);
+    right: 0;
+    top: 0;
+	z-index:100;
     width: 300px;
     max-height: 500px;
     margin: 0;
     padding: 0;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
+
     transition: transform 0.4s;
 }
 #menu.hidden {
@@ -663,7 +770,7 @@ input[type=number] {
     width: 100%;
     position: relative;
     top: 100%;
-    font: 11px Consolas, monospace;
+    font: 11px EvadesTahoma;
     line-height: 20px;
     background: #000000;
     border: none;
@@ -673,12 +780,6 @@ input[type=number] {
 }
 #togglemenu:focus {
     outline: none;
-}
-#togglemenu::after {
-    content: "Close Menu";
-}
-.hidden #togglemenu::after {
-    content: "Open Menu";
 }
 ul {
     list-style: none;
@@ -690,7 +791,8 @@ li {
     overflow: auto;
 }
 #menu input {
-    background: #303030;
+    outline: none;
+    background: #333;
     border: none;
     float: right;
     width: 120px;
@@ -698,11 +800,7 @@ li {
     box-sizing: border-box;
 }
 #menu input:hover {
-    background: #404040;
-}
-#menu input:focus {
-    outline: none;
-    background: #505050;
+    background: #444;
 }
 .folder {
     list-style: none;
@@ -711,30 +809,27 @@ li {
     /* margin-left: -4px; */
     padding: 0 4px 0 16px;
     background: #000000;
-    font: 11px Consolas, monospace;
+    font: 11px EvadesTahoma;
     line-height: 27px;
     height: 27px;
     cursor: pointer;
-    border-bottom: 1px solid #303030;
+    border-bottom: 1px solid #333;
 }
 .title::before {
-    content: "◢";
+    content: "⯆";
     position: absolute;
-    font-family:Lucida Sans Unicode;
     display: block;
-    transform-origin: center;
-    transform: translate(-13px, 0) rotate(45deg) scale(0.5);
-    transition: transform 0.1s;
+    transform: translate(-13px, 0);
 }
 .closed > .title::before {
-    transform: translate(-13px, 0) rotate(-45deg) scale(0.5);
+    content: "⯈";
 }
 .indent {
     margin-left: 4px;
 }
 .label {
     overflow: hidden;
-    font: 11px Consolas, monospace;
+    font: 11px EvadesTahoma;
     float: left;
     display: block;
     line-height: 27px;
@@ -743,7 +838,7 @@ li {
 .section > .label{
     width: 100%;
     overflow: hidden;
-    font: bold 20px tah;
+    font: bold 20px EvadesTahoma;
     text-align: center;
     display: block;
     line-height: 27px;
@@ -769,10 +864,10 @@ li {
     border-left: 3px solid var(--text);
 }
 .property.cardinal {
-    border-left: 3px solid var(--cardinal);
+    border-left: 3px solid red;
 }
 .property.direction {
-    border-left: 3px solid var(--direction);
+    border-left: 3px solid #0000FF;
 }
 .property.text input {
     color: var(--text);
@@ -790,7 +885,7 @@ li {
     height: calc(100% - 8px);
     overflow: hidden;
     border: 1px solid #303030;
-    font: bold 13px Consolas, monospace;
+    font: bold 13px EvadesTahoma;
     line-height: 17px;
     text-align: center;
     position: relative;
@@ -814,11 +909,11 @@ li {
 .property.switch input {
     color: var(--boolean);
 }
+.property.creator {
+    animation: infer-border 5s ease-in-out infinite;
+}
 .property input {
     color: #ffffff;
-}
-.property input:focus {
-    color: #ffffff !important;
 }
 
 .switchLabel {
@@ -837,7 +932,6 @@ li {
     position: relative;
     background: #808080;
     border-radius: 12.5px;
-    transition: .4s;
 }
 .switchSpan::after {
     content: "";
@@ -848,7 +942,6 @@ li {
     top: 2.5px;
     left: 2.5px;
     background: #ffffff;
-    transition: .4s;
     border-radius: 7.5px;
 }
 input:checked+.switchSpan {
@@ -883,12 +976,12 @@ input:checked+.switchSpan::after {
 .cardinalUp {
     left: 15px;
     border-top: none;
-    border-left: 7.5px solid transparent;
-    border-right: 7.5px solid transparent;
-    border-bottom: 12px solid #ffffff;
+    border-left: 7.5px solid #0000;
+    border-right: 7.5px solid #0000;
+    border-bottom: 12px solid #fff;
 }
 .cardinalUp:hover {
-    border-bottom-color: #c0c0c0;
+    border-bottom-color: #ccc;
 }
 .cardinalUp.active {
     border-bottom-color: var(--cardinal) !important;
@@ -897,12 +990,12 @@ input:checked+.switchSpan::after {
     right: 0;
     top: 15px;
     border-right: none;
-    border-top: 7.5px solid transparent;
-    border-bottom: 7.5px solid transparent;
-    border-left: 12px solid #ffffff;
+    border-top: 7.5px solid #0000;
+    border-bottom: 7.5px solid #0000;
+    border-left: 12px solid #fff;
 }
 .cardinalRight:hover {
-    border-left-color: #c0c0c0;
+    border-left-color: #ccc;
 }
 .cardinalRight.active {
     border-left-color: var(--cardinal) !important;
@@ -911,12 +1004,12 @@ input:checked+.switchSpan::after {
     left: 15px;
     bottom: 0;
     border-bottom: none;
-    border-left: 7.5px solid transparent;
-    border-right: 7.5px solid transparent;
-    border-top: 12px solid #ffffff;
+    border-left: 7.5px solid #0000;
+    border-right: 7.5px solid #0000;
+    border-top: 12px solid #fff;
 }
 .cardinalDown:hover {
-    border-top-color: #c0c0c0;
+    border-top-color: #ccc;
 }
 .cardinalDown.active {
     border-top-color: var(--cardinal) !important;
@@ -924,12 +1017,12 @@ input:checked+.switchSpan::after {
 .cardinalLeft {
     top: 15px;
     border-left: none;
-    border-top: 7.5px solid transparent;
-    border-bottom: 7.5px solid transparent;
-    border-right: 12px solid #ffffff;
+    border-top: 7.5px solid #0000;
+    border-bottom: 7.5px solid #0000;
+    border-right: 12px solid #fff;
 }
 .cardinalLeft:hover {
-    border-right-color: #c0c0c0;
+    border-right-color: #ccc;
 }
 .cardinalLeft.active {
     border-right-color: var(--cardinal) !important;
@@ -942,46 +1035,72 @@ input:checked+.switchSpan::after {
     height: 13px !important;
     border: none;
     border-radius: 50%;
-    background: #ffffff !important;
+    background: #fff !important;
 }
 .cardinalCenter:hover {
-    background: #c0c0c0 !important;
+    background: #ccc !important;
 }
 .cardinalCenter.active {
     background: var(--cardinal) !important;
 }
 
-.property.select select {
+.property.select select,.property.createProperty select {
     margin-top: 5.5px;
     float: right;
-    background: #303030;
-    color: #ffffff;
+    background: #333;
+    color: #fff;
     cursor: pointer;
-    border: #505050;
+    border: #555;
     width: 120px;
     text-overflow: ellipsis;
 }
-.property.createProperty select{
-    margin-top: 5.5px;
-    background: #303030;
-    color: #ffffff;
-    cursor: pointer;
-    border: #505050;
-}
 .property.select select:hover,.property.createProperty select:hover {
-    background: #404040;
+    background: #444;
 }
 .property.select option,.property.createProperty option {
-    background: #303030;
+    background: #333;
 }
 .property.select select:focus,.property.createProperty select:focus {
     outline: none;
 }
-.property.select.number select,.property.createProperty.number select {
+.property.select.number select {
     color: var(--number);
 }
-.property.select.text select,.property.createProperty.text select {
+.property.createProperty.creator select {
+    animation: infer 5s ease-in-out infinite;
+}
+.property.select.switch select {
+    color: var(--boolean);
+}
+.property.select.text select {
     color: var(--text);
+}
+@keyframes infer{
+  0% {color: red}
+  50% {color: yellow}
+  100% {color: red}
+}
+@keyframes infer-border{
+  0% {border-left: 3px solid red;}
+  50% {border-left: 3px solid yellow;}
+  100% {border-left: 3px solid red;}
+}
+@keyframes infer2{
+  0% {background: blue}
+  50% {background: fuchsia}
+  100% {background: blue}
+}
+.property.createProperty.text select {
+    color: var(--text);
+}
+.property.select.text select>option.unused {
+    color: hsl(60, 100%, 50%);
+}
+.property.select.text select>option.not-implemented {
+    color: hsl(0, 100%, 50%);
+}
+.property.select.text select>option.joke {
+    color: hsl(300, 100%, 50%);
 }
 
 .property.direction .label {
@@ -1033,19 +1152,33 @@ input:checked+.switchSpan::after {
 .directionHandle:hover {
     background: var(--direction_background_hover);
 }
-
 .array {
     counter-reset: index;
 }
 .array .counter::after {
     counter-increment: index;
-    content: counter(index);
+    content:counter(index);
 }
-.label.counter ~ select{transform:translateX(-25px)}
+.label.counter ~ select,
+.spawners .indent [data-type] input,
+.spawners .indent [data-type] label,
+.spawners .indent [data-type] select{transform:translateX(-25px)}
+[data-type] .label .remove::after{
+  content:"-";
+}
+.property.creator .clone{
+  transform: translate(25px, 0);
+  animation: infer2 5s ease-in-out infinite;
+  display:block;
+}
+[data-type] .label .remove, [data-type].array .temp.remove{
+  animation: infer2 5s ease-in-out infinite;
+  display:block !important;
+}
 .min .label.counter ~ select{transform:translateX(0px)}
 .array .add {
     width: 100%;
-    font: 11px Consolas, monospace;
+    font: 11px EvadesTahoma;
     line-height: 20px;
     background: #000000;
     border: none;
@@ -1053,6 +1186,12 @@ input:checked+.switchSpan::after {
     text-align: center;
     cursor: pointer;
     border-bottom: 1px solid #303030;
+}
+.property.createProperty.creator select{
+    transform:translateX(-25px);
+}
+.addProp:hover {
+    filter: brightness(0.8);
 }
 .array .add::after {
     content: "Add Item";
@@ -1072,7 +1211,7 @@ input:checked+.switchSpan::after {
 /* i have no idea how css works so im boilerplating this */
 .array .centerY, .array .centerX {
     width: 50%;
-    font: 11px Consolas, monospace;
+    font: 11px EvadesTahoma;
     line-height: 20px;
     background: #000000;
     border: none;
@@ -1082,7 +1221,7 @@ input:checked+.switchSpan::after {
     border-bottom: 1px solid #303030;
 }
 
-.array .add:focus {
+.array .add:focus, .addProp:focus {
     outline: none;
 }
 .array .wrapper {
@@ -1101,7 +1240,7 @@ input:checked+.switchSpan::after {
     position: absolute;
     right: 30px;
     top: 3.7px;
-    background: #008000;
+    background: #00FF00;
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -1109,7 +1248,7 @@ input:checked+.switchSpan::after {
     padding: 0;
 }
 .array .clone:hover {
-    background: #00C000;
+    background: #80FF80;
 }
 .array .clone::after {
     content: "+";
@@ -1131,7 +1270,7 @@ input:checked+.switchSpan::after {
     position: absolute;
     right: 5px;
     top: 3.7px;
-    background: #800000;
+    background: #FF0000;
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -1139,7 +1278,7 @@ input:checked+.switchSpan::after {
     padding: 0;
 }
 .array .remove:hover {
-    background: #C00000;
+    background: #FF8080;
 }
 .array .remove::after {
     content: "×";
@@ -1161,28 +1300,73 @@ input:checked+.switchSpan::after {
     color: #FFFFFF;
 }
 .array.min .property:hover .remove {
-    display: none !important;
+    display: none;
 }
 .array.min .title:hover .remove {
-    display: none !important;
+    display: none;
 }
 .array.min .property:hover .wrapper {
     width: 100% !important;
 }
 
+@keyframes infer-light{
+  0% {color: #C00000}
+  50% {color: #C0C000}
+  100% {color: #C00000}
+}
+@keyframes infer-border-light{
+  0% {border-left: 3px solid #C00000;}
+  50% {border-left: 3px solid #C0C000;}
+  100% {border-left: 3px solid #C00000;}
+}
+@keyframes infer2-light{
+  0% {background: #0000C0}
+  50% {background: #C000C0}
+  100% {background: #0000C0}
+}
 @media (prefers-color-scheme: light) {
-    :root {
-        --text: hsl(147, 75%, 40%);
+    #contextmenu {
+        background: #e0e0e0;
+        color: #000000;
     }
-    #menu input {
+    #contextmenu button {
+        background: #e0e0e0;
+        color: #202020;
+    }
+    #contextmenu button:hover {
+        background: #c0c0c0;
+    }
+    #contextmenu button:disabled {
+        color: #20202040;
+    }
+    :root {
+        --text: #00C000;
+        --number: #00C0C0;
+        --boolean: #C000C0;
+    }
+    .property.createProperty.creator select {
+        animation: infer-light 5s ease-in-out infinite;
+    }
+    .property.creator {
+        animation: infer-border-light 5s ease-in-out infinite;
+    }
+    .property.creator .clone{
+      transform: translate(25px, 0);
+      animation: infer2-light 5s ease-in-out infinite;
+      display:block;
+    }
+    [data-type] .label .remove, [data-type].array .temp.remove{
+      animation: infer2-light 5s ease-in-out infinite;
+      display:block !important;
+    }
+    #menu input,#menu select {
         background: #e0e0e0;
     }
-    #menu input:hover {
+    #menu input:hover,#menu select:hover {
         background: #dcdcdc;
     }
-    #menu input:focus {
+    #menu input:focus,#menu select:focus {
         background: #d8d8d8;
-        color: #000000 !important;
     }
     .title {
         background: #c0c0c0;
@@ -1239,28 +1423,50 @@ input:checked+.switchSpan::after {
         --direction_background_transparent: #55b2dd80;
         --direction_background_hover: hsl(199, 67%, 55%);
     }
+    .property select option {
+        background: #e0e0e0 !important;
+    }
+    .property.select.text select>option.unused {
+        color: hsl(0, 0%, 0%);
+    }
+    .property.select.text select>option.not-implemented {
+        color: hsl(60, 100%, 37.5%);
+    }
 }
+
 #bN015htcoyT__google-cache-hdr{
   display:none;
   visibility:hidden;
 }
 
 @font-face {
-  font-family: 'arz';
+  font-family: 'EvadesArial';
   font-weight: 700;
   font-style: normal;
-  src: url("fonts/arz-bold.ttf") format("truetype");
+  src: url("fonts/arial-bold.evades.woff2") format("woff2");
 }
 @font-face {
-  font-family: 'tah';
+  font-family: 'EvadesTahoma';
   font-weight: 400;
   font-style: normal;
-  src: url("fonts/tah-reg.ttf") format("truetype");
+  src: url("fonts/tahoma-regular.evades.woff2") format("woff2");
 }
 @font-face {
-  font-family: 'tah';
+  font-family: 'EvadesTahoma';
   font-weight: 700;
   font-style: normal;
-  src: url("fonts/tah-bold.ttf") format("truetype");
+  src: url("fonts/tahoma-bold.evades.woff2") format("woff2");
+}
+@font-face {
+  font-family: 'fnt_barrio';
+  font-weight: 400;
+  font-style: normal;
+  src: url("fonts/barrio.woff2") format("woff2");
+}
+@font-face {
+  font-family: 'fnt_my_home';
+  font-weight: 400;
+  font-style: normal;
+  src: url("external/fnt_my_home.woff2") format("woff2");
 }
 /*# sourceMappingURL=https://home.sonicexe66.repl.co/EXE/SONIC.EXE */
