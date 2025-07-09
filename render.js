@@ -355,8 +355,8 @@ function render(delta) {
 	ctx.textBaseline = "middle";
 	ctx.textAlign = "right";
 	ctx.fillStyle="white",
-	ctx.strokeText(`Evades Region Editor ${version[3]}${version[0]}.${version[1]}.${version[2]}`,canvas.width-Cam.toGuiScale(10),canvas.height-Cam.toGuiScale(95)+canvasBox.hidden*Cam.toGuiScale(80)),
-	ctx.fillText(`Evades Region Editor ${version[3]}${version[0]}.${version[1]}.${version[2]}`,canvas.width-Cam.toGuiScale(10),canvas.height-Cam.toGuiScale(95)+canvasBox.hidden*Cam.toGuiScale(80))
+	ctx.strokeText(`Evades Region Editor Backup Copy`,canvas.width-Cam.toGuiScale(10),canvas.height-Cam.toGuiScale(95)+canvasBox.hidden*Cam.toGuiScale(80)),
+	ctx.fillText(`Evades Region Editor Backup Copy`,canvas.width-Cam.toGuiScale(10),canvas.height-Cam.toGuiScale(95)+canvasBox.hidden*Cam.toGuiScale(80))
 	ctx.textAlign = "left";
 	if (assetsLoaded.count / 5 < 1)
 		ctx.fillRect(Cam.toGuiScale(10), canvas.height - Cam.toGuiScale(20), assetsLoaded.count / 5 * Cam.toGuiScale(200), Cam.toGuiScale(10)),
